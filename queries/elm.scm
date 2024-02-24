@@ -14,11 +14,17 @@
 
 ;;!! x = { a = 1, b = 2 }
 ;;!        ^^^^^  ^^^^^
-(field name: (_) @collectionKey expression: (_) @value) @_.domain
+(field
+  name: (_) @collectionKey
+  expression: (_) @value
+) @_.domain
 
 ;;!! type alias X = { x : Int, y : Bool }
 ;;!                   ^^^^^^^  ^^^^^^^^
-(field_type name: (_) @collectionKey typeExpression: (_) @value @type) @_.domain
+(field_type
+  name: (_) @collectionKey
+  typeExpression: (_) @value @type
+) @_.domain
 
 ;; string
 
@@ -28,7 +34,6 @@
 ;;!! x = 'a'
 ;;!      ^^^
 (char_constant_expr) @string
-
 
 ;; list
 
@@ -58,14 +63,18 @@
 ;;!                       ^^^^^^^^^
 ;;!! import Stuff exposing (f, g, h)
 ;;!                        ^^^^^^^^^
-(exposing_list (exposed_value) @list)
-
+(exposing_list
+  (exposed_value) @list
+)
 
 ;; anonymousFunction
 
 ;;!! x = \a -> f a
 ;;!      ^^^^^^^^^
-(anonymous_function_expr param: (pattern)* @argumentOrParameter expr: (_) @anonymousFunction.interior) @anonymousFunction @_.domain
+(anonymous_function_expr
+  param: (pattern)* @argumentOrParameter
+  expr: (_) @anonymousFunction.interior
+) @anonymousFunction @_.domain
 
 ;; functionCall
 
@@ -79,7 +88,7 @@
 
 ;;!! x = 1 + 2
 ;;!      ^^^^^
-(bin_op_expr 
+(bin_op_expr
   (_) @argumentOrParameter
   (operator) @functionCallee
   (_) @argumentOrParameter
@@ -87,14 +96,16 @@
 
 ;;!! type alias MyType = TypeWithParams a b
 ;;!                      ^^^^^^^^^^^^^^^^^^
-(type_ref (_) @functionCallee part: (type_variable) @argumentOrParameter) @functionCall
-
+(type_ref
+  (_) @functionCallee
+  part: (type_variable) @argumentOrParameter
+) @functionCall
 
 ;; namedFunction
 
 ;;!! f x y = x
 ;;!  ^^^^^^^^^
-(value_declaration 
+(value_declaration
   functionDeclarationLeft: (function_declaration_left
     (lower_case_identifier) @functionName @name
   )
@@ -102,23 +113,31 @@
 ) @namedFunction @functionName.domain
 
 (anything_pattern) @argumentOrParameter
-(function_declaration_left pattern: (char_constant_expr) @argumentOrParameter)
+(function_declaration_left
+  pattern: (char_constant_expr) @argumentOrParameter
+)
 (cons_pattern) @argumentOrParameter
 (list_pattern) @argumentOrParameter
 (lower_pattern) @argumentOrParameter
-(function_declaration_left pattern: (number_constant_expr) @argumentOrParameter)
+(function_declaration_left
+  pattern: (number_constant_expr) @argumentOrParameter
+)
 (pattern) @argumentOrParameter
 (record_pattern) @argumentOrParameter
-(function_declaration_left pattern: (string_constant_expr) @argumentOrParameter)
+(function_declaration_left
+  pattern: (string_constant_expr) @argumentOrParameter
+)
 (tuple_pattern) @argumentOrParameter
 (union_pattern) @argumentOrParameter
-(function_declaration_left pattern: (unit_expr) @argumentOrParameter)
+(function_declaration_left
+  pattern: (unit_expr) @argumentOrParameter
+)
 
 ;; branch
 
 ;;!! x = if a then b else c
 ;;!!     ^^^^^^^^^^^^^^^^^^
-(if_else_expr 
+(if_else_expr
   .
   (_)
   (_) @branch
@@ -136,6 +155,7 @@
 
 ;;!! type alias X = Int
 ;;!  ^^^^^^^^^^^^^^^^^^
-(type_alias_declaration name: (_) @name) @type
+(type_alias_declaration
+  name: (_) @name
+) @type
 (type_declaration) @type
-
