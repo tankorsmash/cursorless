@@ -1,3 +1,29 @@
+;; [.[] | select(.type == "bin_op_expr") | .fields.part.types[].type]
+
+[
+(anonymous_function_expr)
+(bin_op_expr)
+(case_of_expr)
+(char_constant_expr)
+(field_access_expr)
+(field_accessor_function_expr)
+(function_call_expr)
+(glsl_code_expr)
+(if_else_expr)
+(let_in_expr)
+(list_expr)
+(negate_expr)
+(number_constant_expr)
+(operator_as_function_expr)
+(parenthesized_expr)
+(record_expr)
+(string_constant_expr)
+(tuple_expr)
+(unit_expr)
+(value_expr)
+
+] @statement
+
 ;; map
 
 ;;!! x = { a = 1, b = 2 }
